@@ -1,15 +1,34 @@
-# Unlearning_LLM
-This repo contains code and data for the paper "Machine Unlearning of Pre-trained Large Language Models"
+# 🤖 Unlearning_LLM
+This repo contains code and data for the paper "[Machine Unlearning of Pre-trained Large Language Models](https://arxiv.org/abs/2402.15159)"
 
-The complete code and data will be updated soon.
+[Paper](https://arxiv.org/pdf/2402.15159.pdf) | [Dataset](https://huggingface.co/datasets/llmunlearn/unlearn_dataset)
 
-## Abstract
+The complete code will be updated soon.
+
+## 🌟 Abstract
 
 <details><summary>Abstract</summary>
 
 This study investigates the concept of the `right to be forgotten' within the context of large language models (LLMs). We explore machine unlearning as a pivotal solution, with a focus on pre-trained models--a notably under-researched area. Our research delineates a comprehensive framework for machine unlearning in pre-trained LLMs, encompassing a critical analysis of seven diverse unlearning methods. Through rigorous evaluation using curated datasets from arXiv, books, and GitHub, we establish a robust benchmark for unlearning performance, demonstrating that these methods are over $10^5$ times more computationally efficient than retraining. Our results show that integrating gradient ascent with gradient descent on in-distribution data improves hyperparameter robustness. We also provide detailed guidelines for efficient hyperparameter tuning in the unlearning process. Our findings advance the discourse on ethical AI practices, offering substantive insights into the mechanics of machine unlearning for pre-trained LLMs and underscoring the potential for responsible AI development.
 
 </details>
+
+## 📊 Dataset
+We collect and provide the **unlearn_dataset**, which serves as a benchmark for evaluating unlearning methodologies in pre-trained large language models across diverse domains, including arXiv, GitHub. Access our **unlearn_dataset** directly on [Hugging Face](https://huggingface.co/datasets/llmunlearn/unlearn_dataset).
+
+### 🔍 Loading the datasets
+
+To load the dataset:
+
+```python
+from datasets import load_dataset
+dataset = load_dataset("llmunlearn/unlearn_dataset", name="arxiv", split="forget")
+```
+* Available configuration names and corresponding splits:
+  - `arxiv`: `forget, approximate, retain`
+  - `github`: `forget, approximate, retain`
+  - `general`: `evaluation, retain`
+
 
 ## Environment Setup
 ```
@@ -20,7 +39,7 @@ pip install wandb
 ```
 
 
-## Citation Information
+## ⭐ Citation Information
 
 If you find this code or dataset useful, please consider citing our paper:
 
