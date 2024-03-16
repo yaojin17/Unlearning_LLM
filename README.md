@@ -29,15 +29,28 @@ dataset = load_dataset("llmunlearn/unlearn_dataset", name="arxiv", split="forget
   - `github`: `forget, approximate, retain`
   - `general`: `evaluation, retain`
 
-
-## Environment Setup
+## ✈️ How to run
+### Environment Setup
 ```
+git clone https://github.com/yaojin17/Unlearning_LLM.git
+cd Unlearning_LLM
 conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch
 pip install -e .
 pip install transformers==4.35.0
 pip install wandb
 ```
-
+### Download Yi-6B model
+```
+mkdir models
+cd models
+git lfs install
+git clone https://huggingface.co/01-ai/Yi-6B
+```
+### Prepare tokenized datasets
+```
+cd utils
+python save_tokenized_dataset.py --tokenizer_name_or_path ../../models/Yi-6B
+```
 
 ## ⭐ Citation Information
 

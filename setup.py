@@ -5,7 +5,6 @@ setup(
     version="0.1.0",
     packages=[
         "llm_unlearn",
-        "llm_unlearn.evaluation",
         "llm_unlearn.methods",
         "llm_unlearn.utils",
     ],

@@ -11,7 +11,7 @@ def load_model():
     global model
     if model is None:
         model = AutoModelForCausalLM.from_pretrained(
-            "replace to the default reference model",
+            "../../models/Yi-6B",
             device_map="auto",
             torch_dtype=torch.bfloat16,
             trust_remote_code=True,
@@ -25,14 +25,10 @@ def load_model():
 def compute_logits_and_samples_for_batch(
     inputs, tokenizer, top_k=50, top_p=1.0, rm_groundtruth=False
 ):
-    # # Tokenize the input texts
-    # inputs = tokenizer(input_texts, return_tensors='pt',
-    #                    padding=True, truncation=True).to(device)
 
     # Get logits from the model
     if load_model():
         smart_tokenizer_and_embedding_resize(tokenizer, model)
-    # if model.transformer.wte.weight.shape[0] != tokenizer.vocab_size:
 
     inputs = inputs.to(device)
     with torch.no_grad():
