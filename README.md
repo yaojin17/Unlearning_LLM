@@ -50,6 +50,7 @@ git clone https://huggingface.co/01-ai/Yi-6B
 ```
 cd utils
 python save_tokenized_dataset.py --tokenizer_name_or_path ../../models/Yi-6B
+python ascent_plus_descent_tokenizer.py --tokenizer_name_or_path ../../models/Yi-6B
 ```
 
 ## ⭐ Citation Information
