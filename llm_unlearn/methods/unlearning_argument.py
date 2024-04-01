@@ -22,8 +22,6 @@ from datasets import load_from_disk, concatenate_datasets
 from dataclasses import dataclass, field
 import math
 import numpy as np
-from llm_unlearn.evaluation.mia import compute_mia
-from llm_unlearn.methods import adversarial_training
 from llm_unlearn.utils import tokenize, smart_tokenizer_and_embedding_resize
 
 logger = logging.get_logger(__name__)
@@ -61,5 +59,10 @@ class UnlearningArguments(TrainingArguments):
     domain: str =field(
         default = None,
         metadata={"help": "The unlearned domain."}
+    )
+    general: bool=field(
+        default=False,
+        metadata={"help": "Whether to use the general data when combining gradient ascent with descent or KL-divergence. \
+            Default to False which means to use the in-distribution data"}
     )
     

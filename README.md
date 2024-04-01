@@ -52,6 +52,43 @@ cd utils
 python save_tokenized_dataset.py --tokenizer_name_or_path ../../models/Yi-6B
 python ascent_plus_descent_tokenizer.py --tokenizer_name_or_path ../../models/Yi-6B
 ```
+### Unlearning experiments
+Remember to replace `<your-wandb-key>` in the [run_unlearn.py](llm_unlearn/run_unlearn.py#L90) file to your own key. 
+```
+# Make sure you are under the llm_unlearn dir
+torchrun --nproc_per_node=8 --master_port=20001  run_unlearn.py   \
+    --target_model_name_or_path ../../models/Yi-6B  \
+    --per_device_train_batch_size 1     \
+    --do_unlearn  \
+    --output_dir ./output \
+    --overwrite_output_dir     \
+    --num_train_epochs 1    \
+    --logging_steps 1     \
+    --learning_rate 2e-5     \
+    --warmup_ratio 0.03 \
+    --overwrite_cache \
+    --save_total_limit 1 \
+    --fsdp "full_shard auto_wrap" \
+    --fsdp_transformer_layer_cls_to_wrap 'LlamaDecoderLayer' \
+    --bf16 True \
+    --tf32 True \
+    --weight_decay 0. \
+    --lr_scheduler_type "cosine" \
+    --domain github \
+    --gradient_accumulation_steps 85 \
+    --unlearn_method gradient_ascent 
+  ```
+- Available domains with corresponding arguments: : 
+  - `--domain arxiv  --gradient_accumulation_steps 60 `
+  - `--domain github --gradient_accumulation_steps 85 `
+- Available methods with corresponding arguments: 
+  - `--unlearn_method gradient_ascent `
+  - `--unlearn_method random_label --completely_random True`
+  - `--unlearn_method random_label  --top_k 1  --rm_groundtruth True `
+  - `--unlearn_method ascent_plus_descent`
+  - `--unlearn_method ascent_plus_kl_divergence`
+  - `--unlearn_method ascent_plus_descent --general True`
+  - `--unlearn_method ascent_plus_kl_divergence --general True`
 
 ## ⭐ Citation Information
 
