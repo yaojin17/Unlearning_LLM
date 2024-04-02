@@ -53,7 +53,7 @@ python save_tokenized_dataset.py --tokenizer_name_or_path ../../models/Yi-6B
 python ascent_plus_descent_tokenizer.py --tokenizer_name_or_path ../../models/Yi-6B
 ```
 ### Unlearning experiments
-Remember to replace `<your-wandb-key>` in the [run_unlearn.py](llm_unlearn/run_unlearn.py#L90) file to your own key. 
+Remember to replace `<your-wandb-key>` in the [run_unlearn.py](llm_unlearn/run_unlearn.py#L90), [run_eval.py](llm_unlearn/run_eval.py#L84) files to your own key. 
 ```
 # Make sure you are under the llm_unlearn dir
 torchrun --nproc_per_node=8 --master_port=20001  run_unlearn.py   \
@@ -89,6 +89,22 @@ torchrun --nproc_per_node=8 --master_port=20001  run_unlearn.py   \
   - `--unlearn_method ascent_plus_kl_divergence`
   - `--unlearn_method ascent_plus_descent --general True`
   - `--unlearn_method ascent_plus_kl_divergence --general True`
+
+### Eval unlearned model
+```
+torchrun --nproc_per_node=8 --master_port=20001 run_eval.py \
+    --model_name_or_path ./output/github/Yi-6B/8_gpu_bs_1_gas_85_lr_2.0e_5_epoch1/unlearn/gradient_ascent \
+    --per_device_eval_batch_size 1 \
+    --do_eval \
+    --output_dir ./output/github/Yi-6B-eval \
+    --overwrite_output_dir \
+    --overwrite_cache \
+    --tf32 True \
+    --model_max_length 4096 \
+    --domain github
+```
+
+
 
 ## ⭐ Citation Information
 
