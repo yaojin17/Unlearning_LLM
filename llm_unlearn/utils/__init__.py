@@ -4,3 +4,4 @@ from .top_kp_sample import compute_logits_and_samples_for_batch
 from .llm_tokenize_with_chunk import tokenize
 from .save_tokenized_dataset import adapter_load_dataset
 from .ascent_plus_descent_tokenizer import AdvSupervisedDataset
+from .mia_eval import fig_fpr_tpr

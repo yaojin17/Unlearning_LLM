@@ -3,7 +3,6 @@ This repo contains code and data for the paper "[Machine Unlearning of Pre-train
 
 [Paper](https://arxiv.org/pdf/2402.15159.pdf) | [Dataset](https://huggingface.co/datasets/llmunlearn/unlearn_dataset)
 
-The complete code will be updated soon.
 
 ## 🌟 Abstract
 
@@ -36,8 +35,7 @@ git clone https://github.com/yaojin17/Unlearning_LLM.git
 cd Unlearning_LLM
 conda install pytorch torchvision torchaudio cudatoolkit=11.8 -c pytorch
 pip install -e .
-pip install transformers==4.35.0
-pip install wandb
+pip install -r requirements.txt
 ```
 ### Download Yi-6B model
 ```
@@ -53,7 +51,7 @@ python save_tokenized_dataset.py --tokenizer_name_or_path ../../models/Yi-6B
 python ascent_plus_descent_tokenizer.py --tokenizer_name_or_path ../../models/Yi-6B
 ```
 ### Unlearning experiments
-Remember to replace `<your-wandb-key>` in the [run_unlearn.py](llm_unlearn/run_unlearn.py#L90), [run_eval.py](llm_unlearn/run_eval.py#L84) files to your own key. 
+Remember to replace `<your-wandb-key>` in the [run_unlearn.py](llm_unlearn/run_unlearn.py#L90), [run_eval.py](llm_unlearn/run_eval.py#L84), and [run_mia.py](llm_unlearn/run_mia.py#L85) files to your own key. 
 ```
 # Make sure you are under the llm_unlearn dir
 torchrun --nproc_per_node=8 --master_port=20001  run_unlearn.py   \
@@ -100,10 +98,20 @@ torchrun --nproc_per_node=8 --master_port=20001 run_eval.py \
     --overwrite_output_dir \
     --overwrite_cache \
     --tf32 True \
-    --model_max_length 4096 \
     --domain github
 ```
-
+### Membership inference attack
+```
+torchrun --nproc_per_node=8 --master_port=20001 run_mia.py \
+        --model_name_or_path ./output/github/Yi-6B/8_gpu_bs_1_gas_85_lr_2.0e_5_epoch1general/unlearn/ascent_plus_kl_divergence \
+        --per_device_eval_batch_size 1 \
+        --do_eval \
+        --output_dir ./output/arxiv/Yi-6B-mia \
+        --overwrite_output_dir \
+        --overwrite_cache \
+        --tf32 True \
+        --domain github
+```
 
 
 ## ⭐ Citation Information
