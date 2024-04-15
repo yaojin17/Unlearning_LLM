@@ -81,8 +81,8 @@ torchrun --nproc_per_node=8 --master_port=20001  run_unlearn.py   \
   - `--domain github --gradient_accumulation_steps 85 `
 - Available methods with corresponding arguments: 
   - `--unlearn_method gradient_ascent `
-  - `--unlearn_method random_label --completely_random True`
-  - `--unlearn_method random_label  --top_k 1  --rm_groundtruth True `
+  - `--unlearn_method random_label --completely_random True` (named Fine-tuning with Random Labels in the paper)
+  - `--unlearn_method random_label  --top_k 1  --rm_groundtruth True ` (named Unlearning with Adversarial Samples in the paper)
   - `--unlearn_method ascent_plus_descent`
   - `--unlearn_method ascent_plus_kl_divergence`
   - `--unlearn_method ascent_plus_descent --general True`
