@@ -1,5 +1,5 @@
 # 🤖 Unlearning_LLM
-This repo contains code and data for the paper "[Machine Unlearning of Pre-trained Large Language Models](https://arxiv.org/abs/2402.15159)"
+This repo contains code and data for the ACL 2024 paper "[Machine Unlearning of Pre-trained Large Language Models](https://arxiv.org/abs/2402.15159)"
 
 [Paper](https://arxiv.org/pdf/2402.15159.pdf) | [Dataset](https://huggingface.co/datasets/llmunlearn/unlearn_dataset)
 
